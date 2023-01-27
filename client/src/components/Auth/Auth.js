@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as api from "../../api/index.js";
 // import { useDispatch } from "react-redux";
 import {
   Avatar,
@@ -40,13 +41,37 @@ const SignUp = () => {
     setShowPassword(false);
   };
 
+  const signin = (formData, router) => async (dispatch) => {
+    try {
+      const { data } = await api.signIn(formData);
+
+      localStorage.setItem("profile", JSON.stringify({ data }));
+
+      router("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signup = (formData, router) => async (dispatch) => {
+    try {
+      const { data } = await api.signUp(formData);
+
+      localStorage.setItem("profile", JSON.stringify({ data }));
+
+      router("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignup) {
-      //   dispatch(signup(form, history));
+      signup(form, navigate);
     } else {
-      //   dispatch(signin(form, history));
+      signin(form, navigate);
     }
   };
 
