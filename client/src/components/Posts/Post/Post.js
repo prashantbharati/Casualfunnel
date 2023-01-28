@@ -1,14 +1,30 @@
 import React from "react";
-import { Card, CardContent, Button, Typography } from "@material-ui/core/";
+import {
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  CardActions,
+} from "@material-ui/core/";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
-
+import * as api from "../../../api/index.js";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
+
+  const deletePost = async (id) => {
+    try {
+      console.log("reached delete");
+      const { data } = await api.deletePost(id);
+      console.log("done delete", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Card className={classes.card}>
@@ -51,6 +67,18 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
+      <CardActions className={classes.cardActions}>
+        {(user?.result?.googleId === post?.creator ||
+          user?.result?._id === post?.creator) && (
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => deletePost(post._id)}
+          >
+            <DeleteIcon fontSize="small" /> Delete
+          </Button>
+        )}
+      </CardActions>
     </Card>
   );
 };
