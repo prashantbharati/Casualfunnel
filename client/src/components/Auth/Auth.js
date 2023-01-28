@@ -41,7 +41,7 @@ const SignUp = () => {
     setShowPassword(false);
   };
 
-  const signin = (formData, router) => async (dispatch) => {
+  const signin = async (formData, router) => {
     try {
       const { data } = await api.signIn(formData);
 
@@ -53,8 +53,9 @@ const SignUp = () => {
     }
   };
 
-  const signup = (formData, router) => async (dispatch) => {
+  const signup = async (formData, router) => {
     try {
+      console.log("reached signup");
       const { data } = await api.signUp(formData);
 
       localStorage.setItem("profile", JSON.stringify({ data }));
@@ -69,6 +70,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (isSignup) {
+      console.log("reached signup 1");
       signup(form, navigate);
     } else {
       signin(form, navigate);
