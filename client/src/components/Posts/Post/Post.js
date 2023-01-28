@@ -68,8 +68,8 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        {(user?.result?.googleId === post?.creator ||
-          user?.result?._id === post?.creator) && (
+        {(user?.data.result?.googleId === post?.creator ||
+          user?.data.result?._id === post?.creator) && (
           <Button
             size="small"
             color="secondary"
