@@ -4,13 +4,19 @@ import { Container, Grow, Grid } from "@material-ui/core";
 // import { getPosts } from "../../actions/posts";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
-
+import * as api from "../../api/index.js";
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);
+  const [posts, setPosts] = useState(null);
 
   useEffect(() => {
-    // getPosts();
-  }, [currentId]);
+    const tell = async () => {
+      const { data } = await api.fetchPosts();
+      setPosts(data);
+      return data;
+    };
+    tell();
+  }, [currentId, posts]);
 
   return (
     <Grow in>
@@ -22,10 +28,15 @@ const Home = () => {
           spacing={3}
         >
           <Grid item xs={12} sm={7}>
-            <Posts setCurrentId={setCurrentId} />
+            <Posts setCurrentId={setCurrentId} posts={posts} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Form
+              currentId={currentId}
+              setCurrentId={setCurrentId}
+              posts={posts}
+              setPosts={setPosts}
+            />
           </Grid>
         </Grid>
       </Container>

@@ -5,7 +5,7 @@ import * as api from "../../api/index.js";
 
 import useStyles from "./styles";
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId, setCurrentId, posts, setPosts }) => {
   const [postData, setPostData] = useState({
     title: "",
     message: "",
@@ -35,7 +35,8 @@ const Form = ({ currentId, setCurrentId }) => {
     try {
       console.log("submitted2", postData);
       const { data } = await api.createPost(post);
-      console.log("submitted3", data);
+      setPosts(...posts, data);
+      console.log("submitted3", posts);
       return data;
     } catch (error) {
       console.log(error);

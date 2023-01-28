@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
-import * as api from "../../api/index.js";
+
 import Post from "./Post/Post";
 import useStyles from "./styles";
 
-const Posts = ({ setCurrentId }) => {
-  const [posts, setPosts] = useState(null);
-
-  useEffect(() => {
-    const tell = async () => {
-      const { data } = await api.fetchPosts();
-      setPosts(data);
-      return data;
-    };
-    tell();
-  }, []);
+const Posts = ({ setCurrentId, posts }) => {
   const classes = useStyles();
   console.log("received2", posts?.length);
   return !posts?.length ? (
