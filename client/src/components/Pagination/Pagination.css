@@ -26,3 +26,10 @@
   background: #ffe400;
   color: #101010;
 }
+
+.pagination button.inactive {
+  font-weight: 900;
+  border-color: #101010;
+
+  color: #101010;
+}
