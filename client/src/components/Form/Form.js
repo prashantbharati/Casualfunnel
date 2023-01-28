@@ -9,8 +9,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     title: "",
     message: "",
-    tags: "",
-    selectedFile: "",
   });
 
   const tell = async (currentId) => {
@@ -30,12 +28,14 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({ title: "", message: "", tags: "", selectedFile: "" });
+    setPostData({ title: "", message: "" });
   };
 
   const createPost = async (post) => {
     try {
+      console.log("submitted2", postData);
       const { data } = await api.createPost(post);
+      console.log("submitted3", data);
       return data;
     } catch (error) {
       console.log(error);
@@ -53,7 +53,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("submitted1", postData);
     if (currentId === 0) {
       createPost({ ...postData, name: user?.data.result?.name });
       clear();

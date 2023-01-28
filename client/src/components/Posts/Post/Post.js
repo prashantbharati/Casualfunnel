@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-} from "@material-ui/core/";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Card, CardContent, Button, Typography } from "@material-ui/core/";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
 import moment from "moment";
 
@@ -28,8 +18,8 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      {(user?.result?.googleId === post?.creator ||
-        user?.result?._id === post?.creator) && (
+      {(user?.data.result?.googleId === post?.creator ||
+        user?.data.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
             onClick={() => setCurrentId(post._id)}
