@@ -11,13 +11,11 @@ const Form = ({ currentId, setCurrentId, posts, setPosts }) => {
     message: "",
   });
 
-  const tell = async (currentId) => {
-    const { data } = await api.fetchPost(currentId);
+  let post = currentId
+    ? posts.find((message) => message._id === currentId)
+    : null;
 
-    return data;
-  };
-
-  const post = currentId ? tell(currentId) : null;
+  console.log(post);
 
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -46,6 +44,7 @@ const Form = ({ currentId, setCurrentId, posts, setPosts }) => {
   const updatePost = async (id, post) => {
     try {
       const { data } = await api.updatePost(id, post);
+      console.log("reached u2");
       return data;
     } catch (error) {
       console.log(error);
@@ -59,6 +58,7 @@ const Form = ({ currentId, setCurrentId, posts, setPosts }) => {
       createPost({ ...postData, name: user?.data.result?.name });
       clear();
     } else {
+      console.log("reached u1");
       updatePost(currentId, { ...postData, name: user?.data.result?.name });
       clear();
     }

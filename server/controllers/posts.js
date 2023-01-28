@@ -28,7 +28,7 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const post = req.body;
-  console.log("submitted4");
+
   const newPostMessage = new PostMessage({
     ...post,
     creator: req.userId,
@@ -42,6 +42,20 @@ export const createPost = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { title, message, creator } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const updatedPost = { creator, title, message, _id: id };
+
+  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+  console.log("submitted4");
+  res.json(updatedPost);
 };
 
 export default router;
