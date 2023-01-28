@@ -36,6 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const createPost = async (post) => {
     try {
       const { data } = await api.createPost(post);
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -44,6 +45,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const updatePost = async (id, post) => {
     try {
       const { data } = await api.updatePost(id, post);
+      return data;
     } catch (error) {
       console.log(error);
     }
